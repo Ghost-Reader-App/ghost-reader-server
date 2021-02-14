@@ -3,7 +3,7 @@ import Redis from 'ioredis';
 import type {diffbotArticleType} from './types';
 
 const DIFFBOT_TOKEN = process.env.DIFFBOT_TOKEN;
-const redis = new Redis(process.env.REDIS_TLS_URL);
+const redis = new Redis(process.env.REDIS_URL);
 
 export const getFullTextArticle = async (url: string): Promise<diffbotArticleType> => {
   const cache = await redis.get(url);
