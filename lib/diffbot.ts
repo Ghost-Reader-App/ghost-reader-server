@@ -1,9 +1,16 @@
 import axios from './request';
+import Redis from 'ioredis';
 import type {diffbotArticleType} from './types';
 
 const DIFFBOT_TOKEN = process.env.DIFFBOT_TOKEN;
+const redis = new Redis(process.env.REDIS_TLS_URL);
 
 export const getFullTextArticle = async (url: string): Promise<diffbotArticleType> => {
+  const cache = await redis.get(url);
+  if (cache) {
+    return JSON.parse(cache);
+  }
+
   const {data} = await axios.get(
     'https://api.diffbot.com/v3/article?token=' +
       DIFFBOT_TOKEN +
@@ -17,5 +24,6 @@ export const getFullTextArticle = async (url: string): Promise<diffbotArticleTyp
     },
   );
 
+  redis.set(url, JSON.stringify(data));
   return data;
 };
