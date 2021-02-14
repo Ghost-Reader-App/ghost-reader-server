@@ -38,7 +38,7 @@ server.get('/', async () => {
   return {hello: 'world'};
 });
 
-server.listen(8080, (err, address) => {
+server.listen(process.env.PORT || 3000, '0.0.0.0', (err, address) => {
   if (err) {
     console.error(err);
     process.exit(1);
