@@ -1,7 +1,7 @@
 import fastify from 'fastify';
 import {getFullTextArticle} from './lib/diffbot';
 
-const server = fastify();
+const server = fastify({logger: true});
 
 interface articleQuery {
   jsonfeed: boolean;
