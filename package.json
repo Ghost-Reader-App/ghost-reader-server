@@ -1,0 +1,27 @@
+{
+  "name": "ghost-reader-server",
+  "version": "1.0.0",
+  "description": "A barebones Node.js based RSS server for full-text article parsing using diffbot.",
+  "main": "dist/server.js",
+  "scripts": {
+    "lint": "eslint .",
+    "build": "tsc -p tsconfig.json",
+    "start": "pm2-runtime start ecosystem.config.js --env production"
+  },
+  "repository": "https://github.com/Ghost-Reader-App/ghost-reader-server",
+  "author": "Sayem Chowdhury",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^0.21.1",
+    "axios-rate-limit": "^1.3.0",
+    "fastify": "^3.11.0",
+    "pm2": "^4.5.4"
+  },
+  "devDependencies": {
+    "@types/node": "^14.14.25",
+    "eslint": "^7.19.0",
+    "eslint-plugin-prettier": "^3.3.1",
+    "prettier": "^2.2.1",
+    "typescript": "^4.1.5"
+  }
+}
