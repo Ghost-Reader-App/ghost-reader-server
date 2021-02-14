@@ -28,6 +28,9 @@ server.get('/v1/article', articleSchema, async (request, reply) => {
     }
     return articleData;
 });
+server.get('/', async () => {
+    return { hello: 'world' };
+});
 server.listen(8080, (err, address) => {
     if (err) {
         console.error(err);
