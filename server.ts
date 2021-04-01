@@ -8,8 +8,8 @@ server.register(socketioServer);
 const articleSchema = {
   schema: {
     querystring: {
-      feedId: 'string',
-      id: 'string',
+      feedId: {type: 'string'},
+      id: {type: 'string'},
       url: {
         type: 'string',
         format: 'uri',
@@ -19,8 +19,16 @@ const articleSchema = {
   },
 };
 
-server.get('/v1/article', articleSchema, async (request, reply) => {
-  const {url} = request.query as any;
+interface articleType {
+  Querystring: {
+    feedId: string;
+    id: string;
+    url: string;
+  };
+}
+
+server.get<articleType>('/v1/article', articleSchema, async (request, reply) => {
+  const {url} = request.query;
   const data = await getFullTextArticle(url);
 
   if (data.error) {
@@ -33,7 +41,7 @@ server.get('/v1/article', articleSchema, async (request, reply) => {
   return data;
 });
 
-server.get('/v1/socket/article', articleSchema, async (request) => {
+server.get<articleType>('/v1/socket/article', articleSchema, async (request) => {
   const {feedId, id, url} = request.query as any;
   getFullTextArticle(url).then((data) => {
     if (!data.error && data.objects) {
